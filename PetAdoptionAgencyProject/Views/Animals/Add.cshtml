@@ -1,0 +1,51 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model PetAdoptionAgencyProject.Models.AnimalViewModel
+
+<h1> Add Animal</h1>
+<form method="post">
+
+
+<div class="mt-3">
+    <label class="form-label">Name</label>
+    <input type="text" class="form-control" asp-for="Name" />
+
+
+</div>
+
+<div class="mt-3">
+    <label class="form-label">Species</label>
+    <input type="text" class="form-control" asp-for="Species" />
+
+
+</div>
+
+<div class="mt-3">
+    <label class="form-label">Breed</label>
+    <input type="text" class="form-control" asp-for="Breed" />
+
+
+</div>
+
+<div class="mt-3">
+    <label class="form-label">Age</label>
+    <input type="text" class="form-control" asp-for="Age" />
+
+
+</div>
+
+<div class="mt-3">
+    <label class="form-label">Weight</label>
+    <input type="text" class="form-control" asp-for="Weight" />
+
+
+</div>
+
+<div class="mt-3">
+    <button type="submit" class="btn-primary">Save</button>
+
+</div>
+</form>

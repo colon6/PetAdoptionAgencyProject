@@ -1,0 +1,42 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<PetAdoptionAgencyProject.Models.Entities.Animal>
+
+<h1>Animals</h1>
+<h2>~Meet our Residents~</h2>
+<p>Below is a master list of all of our animals available for adoption! It's a lot, right? Consider using our filters to narrow down your options, or taking our questionnaire to match you with your new furry friend!</p>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Species</th>
+            <th>Breed</th>
+            <th>Weight</th>
+            <th>Size</th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var animal in Model)
+        {
+            <tr>
+                <td>@animal.Name</td>
+                <td>@animal.Age</td>
+                <td>@animal.Species</td>
+                <td>@animal.Breed</td>
+                <td>@animal.Weight</td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="Animals" asp-actions="editAnimal" asp-route-id="@animal.Name">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
