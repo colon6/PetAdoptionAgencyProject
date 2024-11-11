@@ -9,6 +9,7 @@ namespace PetAdoptionAgencyProject.Data
         {
 
         }
-        public DbSet<Animal> Animals { get; set; }  
+        public DbSet<Animal> Animals { get; set; }
+        public DbSet<Credential> Credentials { get; set; }
     }
 }

@@ -26,6 +26,10 @@ namespace PetAdoptionAgencyProject
                 app.UseHsts();
             }
 
+
+
+
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -35,7 +39,7 @@ namespace PetAdoptionAgencyProject
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Credentials}/{action=Login}/{id?}");
 
             app.Run();
         }

@@ -5,38 +5,166 @@
 }
 @model List<PetAdoptionAgencyProject.Models.Entities.Animal>
 
-<h1>Animals</h1>
-<h2>~Meet our Residents~</h2>
-<p>Below is a master list of all of our animals available for adoption! It's a lot, right? Consider using our filters to narrow down your options, or taking our questionnaire to match you with your new furry friend!</p>
+<head>
+    <link rel="stylesheet" href="@Url.Content("~/css/site.css")" />
+    <script type="text/javascript" src="@Url.Content("~/js/site.js")"></script>
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Species</th>
-            <th>Breed</th>
-            <th>Weight</th>
-            <th>Size</th>
-            <th></th>
+ 
 
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var animal in Model)
-        {
-            <tr>
-                <td>@animal.Name</td>
-                <td>@animal.Age</td>
-                <td>@animal.Species</td>
-                <td>@animal.Breed</td>
-                <td>@animal.Weight</td>
-                <td>
-                    <a class="btn btn-primary" asp-controller="Animals" asp-actions="editAnimal" asp-route-id="@animal.Name">Edit</a>
-                </td>
-            </tr>
+
+
+<style>
+    body{font-family: 'Courier New', monospace; }
+
+    .item-container{
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 16px;
+    }
+
+    .item{
+        padding: 20px;
+        background-color: #f4f4f4;
+        border: 1px solid #ddd;
+        text-align: center;
+        border-radius: 15px;
+    }
+    .item:hover{
+        background-color: #a9a9a9;
+    }
+
+    .parallax{
+            background-image: url('@Url.Content("/image/ListAnimalBanner.jpg")'); 
+            height:50vh;
+        width: 100%;
+        background-attachment: fixed;
+        background-position: center;
+        background repeat: no-repeat;
+        background-size: cover;
+        z-index: 0;
+        position: relative;
+
+
+    }
+
+        img.square {
+            width: 150px; 
+            height: 150px; 
+            object-fit: cover; 
+            border-radius: 20px;
         }
-    </tbody>
-</table>
+
+        img.bigsquare {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+
+</style>
+
+</head>
+
+<h1>All Residents</h1>
+<center>
+
+<div class="parallax"> </div><br /><br />
+
+<b><h2>~Meet our Residents~</h2></b>
+
+
+<p>Below is a master list of all of our animals available for adoption! It's a lot, right? Consider using our filters to narrow down your options, or taking our questionnaire to match you with your new furry friend!</p>
+</center>
+<br /><br />
+
+<center><a class="btn btn-primary " asp-controller="Animals" asp-action="Add">Add Resident</a></center>
+<br />
+
+
+
+<div class="item-container">
+    @foreach (var animal in Model)
+    {
+        var animalIdFormatted = animal.Id.ToString("N"); // "N" removes dashes from the Guid
+
+
+
+        <div class="item">
+        <p><center>
+            <a href="javascript:void(0)" onclick="popupfunction('@animalIdFormatted')" class="link">
+                <img src="@Url.Content(animal.Image)" class="square"/><br />
+            </a>
+            @animal.Name <br />
+            Age: @animal.Age <br />
+            @animal.Species , @animal.Breed <br />
+            Size: @animal.Size <br />
+            <b>Adoption Fee: @animal.AdoptionFee </b>
+            </center>
+        </p>
+        </div>
+
+        <div id="@animalIdFormatted" class="white_content">
+            <p> <center>
+                    <img src="@Url.Content(animal.Image)" class="bigsquare" /><br /><br />
+                    <b> This is @animal.Name !</b><br />
+                    Age: @animal.Age <br />
+                    @animal.Species , @animal.Breed <br />
+                    Size: @animal.Size <br />
+                    Weight: @animal.Weight <br />
+                    Bonded: @animal.Bonded , Animal Friendly: @animal.AnimalFriendly , Child Friendly: @animal.ChildFriendly<br />
+                    <b>Adoption Fee: @animal.AdoptionFee </b><br />
+
+                    <a class="btn btn-primary " asp-controller="Animals" asp-action="editAnimal" asp-route-id="@animal.Id">Edit</a><br />
+
+
+                <a href ="javascript:void(0)" onclick="popupclose('@animalIdFormatted')" class="linktext">close</a>
+            </center></p>
+        </div>
+        <div id='overlay' class="black_content" onclick="popupclose('@animalIdFormatted')"></div>
+    }
+
+
+
+
+</div>
+
+<script>
+    // Wait for the DOM to load completely before binding events
+    document.addEventListener('DOMContentLoaded', function () {
+        // Bind click event dynamically for all links with the 'link' class
+        const links = document.querySelectorAll('.link');
+        links.forEach(link => {
+            link.addEventListener('click', function () {
+                const animalId = link.getAttribute('data-animal-id');
+                popupfunction(animalId);
+            });
+        });
+    });
+
+    // Define the popup functions
+    function popupfunction(animalId) {
+        var popup = document.getElementById('popup' + animalId);
+        var fade = document.getElementById('fade' + animalId);
+
+        if (popup && fade) {
+            popup.style.display = 'block';
+            fade.style.display = 'block';
+        } else {
+            console.error("Popup or fade element not found for animalId:", animalId);
+        }
+    }
+
+    function popupclose(animalId) {
+        var popup = document.getElementById('popup' + animalId);
+        var fade = document.getElementById('fade' + animalId);
+
+        if (popup && fade) {
+            popup.style.display = 'none';
+            fade.style.display = 'none';
+        } else {
+            console.error("Popup or fade element not found for animalId:", animalId);
+        }
+    }
+</script>

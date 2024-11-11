@@ -34,7 +34,12 @@ namespace PetAdoptionAgencyProject.Controllers
                 Breed = animalViewModel.Breed,
                 Age = animalViewModel.Age,
                 Weight = animalViewModel.Weight,
-
+                AdoptionFee = animalViewModel.AdoptionFee,
+                Size = animalViewModel.Size,
+                AnimalFriendly = animalViewModel.AnimalFriendly,
+                ChildFriendly = animalViewModel.ChildFriendly,
+                Bonded = animalViewModel.Bonded,
+                Image = animalViewModel.Image,
             };
             await dbContext.Animals.AddAsync(animal);
             await dbContext.SaveChangesAsync();
@@ -69,6 +74,12 @@ namespace PetAdoptionAgencyProject.Controllers
                 animal.Breed = viewAnimal.Breed;
                 animal.Age= viewAnimal.Age;
                 animal.Weight = viewAnimal.Weight;
+                animal.Size = viewAnimal.Size;
+                animal.AdoptionFee = viewAnimal.AdoptionFee;
+                animal.AnimalFriendly = viewAnimal.AnimalFriendly;
+                animal.ChildFriendly = viewAnimal.AnimalFriendly;
+                animal.Bonded = viewAnimal.Bonded;
+                animal.Image = viewAnimal.Image;
                 await dbContext.SaveChangesAsync();
 
 
@@ -90,6 +101,12 @@ namespace PetAdoptionAgencyProject.Controllers
             return RedirectToAction("ListAnimals", "Animals");
         }
 
-
+        public class HomeController : Controller
+        {
+            public ActionResult Index()
+            {
+                return View();
+            }
+        }
     }
 }
